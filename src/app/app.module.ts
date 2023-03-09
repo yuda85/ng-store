@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { HeaderComponent } from './components/header/header.component';
 import { AppComponent } from './app.component';
+import { HomeModule } from './home/home.module';
+import { SharedModule } from './shared/shared.module';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -15,9 +18,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
+    MaterialModule,
+    HomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
