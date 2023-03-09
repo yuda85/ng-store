@@ -1,0 +1,13 @@
+.home {
+  &__banner {
+    width: 100%;
+    height: 350px;
+    background: url("/assets/banner.jfif");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @media screen and (max-width: 900px) {
+      background-size: contain;
+    }
+  }
+}
