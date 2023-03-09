@@ -11,4 +11,16 @@
       background-repeat: no-repeat;
     }
   }
+
+  &__products {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  &__product {
+    width: 30%;
+  }
 }
