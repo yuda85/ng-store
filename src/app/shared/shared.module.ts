@@ -8,6 +8,6 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 @NgModule({
   declarations: [CardComponent, ProductFormComponent],
   imports: [CommonModule, MaterialModule],
-  exports: [CardComponent],
+  exports: [CardComponent, ProductFormComponent],
 })
 export class SharedModule {}

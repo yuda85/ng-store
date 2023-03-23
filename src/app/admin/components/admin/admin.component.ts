@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { ProductService } from 'src/app/product/services/product.service';
 import { IProduct } from 'src/app/shared/models';
 
@@ -11,7 +12,7 @@ import { IProduct } from 'src/app/shared/models';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent {
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
@@ -24,6 +25,10 @@ export class AdminComponent {
       this.initTable(data);
       this.initFilterAndPagination();
     });
+  }
+
+  editProduct(id: string): void {
+    this.router.navigate(['admin/edit', id]);
   }
 
   public applyFilter(event: Event): void {

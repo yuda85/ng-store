@@ -1,0 +1,43 @@
+.sidebar {
+  width: 400px;
+  height: 100vh;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: -400px;
+  transition: 0.3s all ease;
+  z-index: 2;
+
+  &--open {
+    left: 0px;
+  }
+
+  &__inner {
+    padding: 10px;
+
+    a {
+      display: block;
+      font-size: 18px;
+      text-decoration: none;
+    }
+  }
+}
+
+.backdrop {
+  z-index: 1;
+  background: rgba(17, 17, 17, 0.4);
+
+  opacity: 0;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: 300ms all ease;
+
+  &--open {
+    pointer-events: all;
+    opacity: 1;
+  }
+}

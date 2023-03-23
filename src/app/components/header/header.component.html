@@ -2,7 +2,7 @@
   <mat-toolbar color="primary">
     <div class="header__container">
       <div class="header__left">
-        <button mat-icon-button>
+        <button mat-icon-button (click)="openSidebar()">
           <mat-icon>menu</mat-icon>
         </button>
         <span>NG Store</span>
@@ -16,3 +16,10 @@
     </div>
   </mat-toolbar>
 </header>
+
+<div class="sidebar-container">
+  <app-sidebar
+    [isOpen]="sidebarOpen"
+    (onCloseSidebar)="closeSidebar()"
+  ></app-sidebar>
+</div>
