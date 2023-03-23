@@ -1,7 +1,8 @@
 <div class="sidebar" [ngClass]="{ 'sidebar--open': isOpen }">
   <div class="sidebar__inner">
-    <a [routerLink]="['admin']">Admin</a>
-    <a (click)="navigateToHome()">Home</a>
+    <a mat-flat-button [routerLink]="['admin']">Admin</a>
+    <a mat-flat-button (click)="navigateToHome()">Home</a>
+    <a mat-flat-button (click)="openLoginPopup()">Login</a>
   </div>
 </div>
 
