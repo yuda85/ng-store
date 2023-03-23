@@ -81,4 +81,13 @@
     </tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+  <button
+    class="admin__add-product"
+    mat-fab
+    color="primary"
+    (click)="openDialog()"
+  >
+    <mat-icon> add_circle </mat-icon>
+  </button>
 </div>

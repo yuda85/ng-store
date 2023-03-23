@@ -1,9 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/product/services/product.service';
+import { ProductFormComponent } from 'src/app/shared/components/product-form/product-form.component';
 import { IProduct } from 'src/app/shared/models';
 
 @Component({
@@ -12,7 +14,11 @@ import { IProduct } from 'src/app/shared/models';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent {
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    public dialog: MatDialog
+  ) {}
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
@@ -25,6 +31,8 @@ export class AdminComponent {
       this.initTable(data);
       this.initFilterAndPagination();
     });
+
+    this.productService.fetchProducts();
   }
 
   editProduct(id: string): void {
@@ -38,6 +46,14 @@ export class AdminComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  public openDialog(): void {
+    const dialogRef = this.dialog.open(ProductFormComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 
   private initTable(data: IProduct[]): void {
