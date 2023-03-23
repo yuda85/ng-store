@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { debounceTime, delay } from 'rxjs';
 import { ProductService } from 'src/app/product/services/product.service';
 import { IProduct } from 'src/app/shared/models';
 
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log('all products', data);
       this.products = data;
     });
+    this.productService.fetchProducts();
   }
 
   ngOnDestroy(): void {}

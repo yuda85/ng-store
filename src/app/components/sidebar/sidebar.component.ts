@@ -11,9 +11,7 @@ export class SidebarComponent {
 
   @Output() onCloseSidebar: EventEmitter<void> = new EventEmitter();
 
-  constructor(private router: Router) {
-    this.router.navigate(['/admin']);
-  }
+  constructor(private router: Router) {}
 
   public closeSidebar(): void {
     this.onCloseSidebar.emit();
