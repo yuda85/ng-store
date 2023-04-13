@@ -1,1 +1,9 @@
-<h1>product-form works!</h1>
+<div class="product-form" *ngIf="productForm">
+  <form [formGroup]="productForm" (ngSubmit)="submit()">
+    <!-- Title -->
+    <mat-form-field appearance="fill">
+      <mat-label>title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+  </form>
+</div>
