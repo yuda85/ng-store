@@ -17,6 +17,10 @@ import { PRODUCTS_MOCK } from './products.mock';
   providedIn: 'root',
 })
 export class ProductService {
+  //     this.productsSubject$.next(data);
+  //   });
+  // }, 3000);
+
   constructor(
     private http: HttpClient,
     private storageService: StorageService
@@ -67,5 +71,19 @@ export class ProductService {
     } else {
       return null;
     }
+  }
+
+  public onProductChange(newProduct: IProduct) {
+    const productsList = this.productsSubject$.value;
+
+    const productIndex: number = productsList.findIndex(
+      (product) => product.id === newProduct.id
+    );
+
+    productsList[productIndex] = newProduct;
+
+    this.storageService.setData('products', productsList);
+
+    this.fetchProducts();
   }
 }

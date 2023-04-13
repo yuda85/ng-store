@@ -44,6 +44,10 @@ export class EditProductComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  public onSubmit(product: IProduct) {
+    this.productService.onProductChange(product);
+  }
+
   //get the product from the product Service
   //implement in product servce: Get Ptoduct By Id
   //log the product!
