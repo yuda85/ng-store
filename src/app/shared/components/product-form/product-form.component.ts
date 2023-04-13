@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IProduct } from '../../models';
 
 @Component({
   selector: 'app-product-form',
@@ -7,16 +8,41 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent {
+  @Input() set product(product: IProduct) {
+    console.log('product changed', product);
+    if (this.productForm) {
+      this.prePopulateForm(product);
+    }
+
+    this._product = product;
+  }
+
+  private _product: IProduct;
+
+  get product(): IProduct {
+    return this._product;
+  }
+
   public productForm?: FormGroup;
 
   ngOnInit() {
-    this.initForm();
+    this.initForm(this.product);
   }
 
-  private initForm(): void {
+  private prePopulateForm(product: IProduct): void {
+    this.productForm.patchValue({
+      title: product.title,
+    });
+  }
+
+  ngOnChanges() {}
+
+  private initForm(product?: IProduct): void {
     //Initialize the product form
+    if (product) {
+    }
     this.productForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
+      title: new FormControl(product.title, [Validators.required]),
       description: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
       image: new FormControl('', [Validators.required]),

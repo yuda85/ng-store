@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ProductService } from 'src/app/product/services/product.service';
+import { IProduct } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-edit-product',
@@ -10,15 +12,27 @@ import { Subscription } from 'rxjs';
 export class EditProductComponent implements OnInit, OnDestroy {
   private sub: Subscription = new Subscription();
 
-  public id: string = '';
+  public product: IProduct;
+  public id: number;
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private productService: ProductService
+  ) {}
 
   ngOnInit() {
     this.sub.add(
       this.activatedRoute.params.subscribe((data) => {
         this.id = data['id'];
         console.log(this.id);
+
+        this.product = this.productService.getProductById(this.id);
+
+        console.log(this.product);
+
+        setTimeout(() => {
+          this.product = this.productService.getProductById(19);
+        }, 4000);
       })
     );
   }

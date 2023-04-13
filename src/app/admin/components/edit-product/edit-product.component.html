@@ -1,3 +1,8 @@
 <p>edit-product works!</p>
+<div class="edit-product" *ngIf="product; else noProduct">
+  <app-product-form [product]="product"></app-product-form>
+</div>
 
-<app-product-form></app-product-form>
+<ng-template #noProduct>
+  <h1>SORRY NO PRODUCT!!!!</h1>
+</ng-template>

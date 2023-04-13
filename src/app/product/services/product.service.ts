@@ -55,11 +55,11 @@ export class ProductService {
 
   public getProductById(id: number): IProduct {
     this.fetchProducts();
-
+    debugger;
     const productsList = this.productsSubject$.value;
 
     const productIndex: number = productsList.findIndex(
-      (product) => product.id === id
+      (product) => product.id === Number(id)
     );
 
     if (productsList[productIndex]) {
