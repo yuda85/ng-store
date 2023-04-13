@@ -8,10 +8,12 @@ import { IProduct } from '../../models';
   styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent {
+  public isValidForm: boolean = false;
+
   @Input() set product(product: IProduct) {
     console.log('product changed', product);
     if (this.productForm) {
-      this.prePopulateForm(product);
+      // this.prePopulateForm(product);
     }
 
     this._product = product;
@@ -27,6 +29,14 @@ export class ProductFormComponent {
 
   ngOnInit() {
     this.initForm(this.product);
+
+    setTimeout(() => {
+      this.isValidForm = true;
+    }, 3000);
+  }
+
+  public getControl(control: string): FormControl {
+    return this.productForm.controls[control] as FormControl;
   }
 
   private prePopulateForm(product: IProduct): void {
@@ -42,7 +52,10 @@ export class ProductFormComponent {
     if (product) {
     }
     this.productForm = new FormGroup({
-      title: new FormControl(product.title, [Validators.required]),
+      title: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
       description: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
       image: new FormControl('', [Validators.required]),

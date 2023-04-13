@@ -30,9 +30,11 @@ export class EditProductComponent implements OnInit, OnDestroy {
 
         console.log(this.product);
 
-        setTimeout(() => {
-          this.product = this.productService.getProductById(19);
-        }, 4000);
+        //this is an example for changing the input value dynamically
+        // setTimeout(() => {
+        //   debugger;
+        //   this.product = this.productService.getProductById(19);
+        // }, 4000);
       })
     );
   }

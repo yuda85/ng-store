@@ -4,6 +4,21 @@
     <mat-form-field appearance="fill">
       <mat-label>title</mat-label>
       <input matInput formControlName="title" />
+      <mat-error
+        *ngIf="
+          getControl('title').dirty &&
+          !getControl('title').pristine &&
+          !getControl('title').valid
+        "
+        >this name is too long
+        {{ getControl("title").errors | json }}</mat-error
+      >
+
+      <mat-error *ngIf="getControl('title').errors && ['required']"
+        >this field is required</mat-error
+      >
     </mat-form-field>
+
+    <button mat-raised-button type="submit">Submit</button>
   </form>
 </div>
