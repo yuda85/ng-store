@@ -14,7 +14,20 @@
 
     <mat-card-actions>
       <span class="card__price">{{ product.price | currency }} </span>
-      <button mat-button>Add To Cart</button>
+      <button
+        *ngIf="!isInCart; else removeBtn"
+        mat-button
+        color="primary"
+        (click)="onAddToCart(product)"
+      >
+        Add To Cart
+      </button>
+
+      <ng-template #removeBtn>
+        <button mat-button color="warn" (click)="removeFromCart(product.id)">
+          Remove From Cart
+        </button>
+      </ng-template>
       <button mat-button>SHARE</button>
     </mat-card-actions>
   </mat-card>

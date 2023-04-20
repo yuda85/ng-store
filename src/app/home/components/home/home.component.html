@@ -2,7 +2,13 @@
   <div class="home__banner"></div>
   <div class="home__products" *ngIf="products.length">
     <div class="home__product" *ngFor="let product of products">
-      <app-card [product]="product"> </app-card>
+      <app-card
+        [isInCart]="isInCart(product.id) | async"
+        [product]="product"
+        (addToCart)="addToCart($event)"
+        (onRemoveFromCart)="removeFromCart($event)"
+      >
+      </app-card>
     </div>
   </div>
 </div>

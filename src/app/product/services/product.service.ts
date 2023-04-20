@@ -4,6 +4,7 @@ import {
   BehaviorSubject,
   debounceTime,
   delay,
+  map,
   Observable,
   of,
   Subject,
@@ -14,6 +15,12 @@ import { IProduct } from 'src/app/shared/models';
 import { PRODUCTS_MOCK } from './products.mock';
 
 import * as uuid from 'uuid';
+import { Store } from '@ngxs/store';
+import {
+  DeleteCartItem,
+  SetCartItem,
+} from 'src/app/core/state/product/product.actions';
+import { ProductStateSelectors } from 'src/app/core/state/product/product.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +32,8 @@ export class ProductService {
 
   constructor(
     private http: HttpClient,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private store: Store
   ) {}
 
   private productsSubject$: BehaviorSubject<IProduct[]> = new BehaviorSubject(
@@ -99,5 +107,24 @@ export class ProductService {
     this.storageService.setData('products', productsList);
 
     this.fetchProducts();
+  }
+
+  public addToCart(product: IProduct): void {
+    debugger;
+    this.store.dispatch(new SetCartItem(product));
+  }
+
+  public isProductInCart$(productId: number): Observable<boolean> {
+    return this.store.select(ProductStateSelectors.cartItems).pipe(
+      map((data) => {
+        const isInCart = data.some((Item) => Item.id === productId);
+
+        return isInCart;
+      })
+    );
+  }
+
+  removeFromCart(id: number) {
+    this.store.dispatch(new DeleteCartItem(id));
   }
 }

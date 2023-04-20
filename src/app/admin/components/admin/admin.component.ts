@@ -54,7 +54,7 @@ export class AdminComponent {
   public openDialog(): void {
     const dialogRef = this.dialog.open(ProductFormComponent, {});
     this.sub.add(
-      dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.afterClosed().subscribe((result: IProduct) => {
         console.log(result);
         console.log('The dialog was closed');
         this.productService.addNewProduct(result);
