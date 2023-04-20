@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/product/services/product.service';
 import { ProductFormComponent } from 'src/app/shared/components/product-form/product-form.component';
 import { IProduct } from 'src/app/shared/models';
@@ -25,6 +26,8 @@ export class AdminComponent {
 
   public displayedColumns: Array<string> = [];
   public dataSource: MatTableDataSource<IProduct> = new MatTableDataSource();
+
+  private sub: Subscription = new Subscription();
 
   ngOnInit() {
     this.productService.getProducts$().subscribe((data) => {
@@ -50,10 +53,13 @@ export class AdminComponent {
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(ProductFormComponent, {});
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
+    this.sub.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(result);
+        console.log('The dialog was closed');
+        this.productService.addNewProduct(result);
+      })
+    );
   }
 
   private initTable(data: IProduct[]): void {
@@ -72,5 +78,9 @@ export class AdminComponent {
 
   ngAfterViewInit() {
     this.initFilterAndPagination();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

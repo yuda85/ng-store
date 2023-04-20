@@ -13,6 +13,8 @@ import { StorageService } from 'src/app/core/services/storage.service';
 import { IProduct } from 'src/app/shared/models';
 import { PRODUCTS_MOCK } from './products.mock';
 
+import * as uuid from 'uuid';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,7 +38,7 @@ export class ProductService {
 
   public fetchProducts(): void {
     const existingData: IProduct[] = this.storageService.getData('products');
-
+    debugger;
     if (existingData) {
       this.productsSubject$.next(existingData);
     } else {
@@ -82,6 +84,18 @@ export class ProductService {
 
     productsList[productIndex] = newProduct;
 
+    this.storageService.setData('products', productsList);
+
+    this.fetchProducts();
+  }
+
+  public addNewProduct(result: IProduct): void {
+    const productsList = this.productsSubject$.value;
+
+    result.id = uuid.v4(); // productsList.length + 1; // OR generate random id
+
+    debugger;
+    productsList.push(result);
     this.storageService.setData('products', productsList);
 
     this.fetchProducts();

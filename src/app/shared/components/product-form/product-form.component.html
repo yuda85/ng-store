@@ -18,7 +18,43 @@
         >this field is required</mat-error
       >
     </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>description</mat-label>
+      <input matInput formControlName="description" />
+      <mat-error
+        *ngIf="
+          getControl('description').dirty &&
+          !getControl('description').pristine &&
+          !getControl('description').valid
+        "
+        >this name is too long
+        {{ getControl("description").errors | json }}</mat-error
+      >
 
+      <mat-error *ngIf="getControl('description').errors && ['required']"
+        >this field is required</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>category</mat-label>
+      <input matInput formControlName="category" />
+      <mat-error
+        *ngIf="
+          getControl('category').dirty &&
+          !getControl('category').pristine &&
+          !getControl('category').valid
+        "
+        >this name is too long
+        {{ getControl("category").errors | json }}</mat-error
+      >
+
+      <mat-error *ngIf="getControl('category').errors && ['required']"
+        >this field is required</mat-error
+      >
+    </mat-form-field>
+    <br />
     <button mat-raised-button [disabled]="!productForm.valid" type="submit">
       Submit
     </button>

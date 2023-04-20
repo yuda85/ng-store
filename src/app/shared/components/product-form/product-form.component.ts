@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IProduct } from '../../models';
+import { ProductService } from 'src/app/product/services/product.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-form',
@@ -11,6 +13,11 @@ export class ProductFormComponent {
   public isValidForm: boolean = false;
 
   public isFormInit: boolean = false;
+
+  constructor(
+    public dialogRef: MatDialogRef<ProductFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogData: IProduct
+  ) {}
 
   @Output() onSubmit: EventEmitter<IProduct> = new EventEmitter();
 
@@ -37,6 +44,9 @@ export class ProductFormComponent {
   public productForm?: FormGroup;
 
   ngOnInit() {
+    if (this.dialogData) {
+      this.product = this.dialogData;
+    }
     this.initForm(this.product);
 
     setTimeout(() => {
@@ -49,7 +59,6 @@ export class ProductFormComponent {
   }
 
   private prePopulateForm(product: IProduct): void {
-    debugger;
     this.productForm.patchValue({
       title: product.title,
     });
@@ -63,10 +72,7 @@ export class ProductFormComponent {
     if (product) {
     }
     this.productForm = new FormGroup({
-      title: new FormControl('', [
-        Validators.required,
-        Validators.minLength(10),
-      ]),
+      title: new FormControl('', []),
       description: new FormControl(''),
       category: new FormControl(''),
       image: new FormControl(''),
@@ -80,8 +86,17 @@ export class ProductFormComponent {
   }
 
   public submit(): void {
-    this.product.title = this.productForm.value.title;
-    this.onSubmit.emit(this.product);
+    // this.product.title = this.productForm.value.title;
+    this.product = {
+      ...this.product,
+      ...this.productForm.value,
+    };
+    if (this.dialogRef) {
+      this.dialogRef.close(this.product);
+    } else {
+      this.onSubmit.emit(this.product);
+    }
+
     console.log('new value::::', this.product);
   }
 }
