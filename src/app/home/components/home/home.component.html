@@ -1,7 +1,16 @@
 <div class="home">
   <div class="home__banner"></div>
   <div class="home__products" *ngIf="products.length">
-    <div class="home__product" *ngFor="let product of products">
+    <div
+      class="home__product"
+      *ngFor="
+        let product of products;
+        let first = first;
+        let last = last;
+        let i = index;
+        trackBy: trackByFn
+      "
+    >
       <app-card
         [isInCart]="isInCart(product.id) | async"
         [product]="product"

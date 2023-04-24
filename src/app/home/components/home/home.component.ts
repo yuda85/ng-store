@@ -17,6 +17,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.productService.getProducts$().subscribe((data) => {
       console.log('all products', data);
       this.products = data;
+
+      const newProd = data[5];
+      newProd.id = 92;
+      data.push(newProd);
+
+      setTimeout(() => {
+        this.products = [];
+        this.products = data;
+      }, 5000);
     });
     this.productService.fetchProducts();
   }
@@ -38,5 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public removeFromCart(id: number): void {
     this.productService.removeFromCart(id);
+  }
+
+  public trackByFn(index: number): number {
+    return index;
   }
 }

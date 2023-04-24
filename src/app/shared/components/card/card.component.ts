@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProduct } from '../../models';
+import { logThis } from 'src/app/utils/log.consts';
 
 @Component({
   selector: 'app-card',
@@ -19,5 +20,9 @@ export class CardComponent {
 
   public removeFromCart(id: number): void {
     this.onRemoveFromCart.emit(id);
+  }
+
+  ngOnInit() {
+    logThis('wow!!!');
   }
 }
